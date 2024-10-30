@@ -10,10 +10,20 @@ import CoreData
 
 
 struct Menu: View {
+    
+    enum highlightTag {
+        case all
+        case starters
+        case mains
+        case desserts
+        case drinks
+    }
+    
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var path: [String]
     @State var searchText = ""
     @State var categoryType = ""
+    @State private var highlighted = highlightTag.all
     
     var body: some View {
         VStack(spacing: 20){
@@ -69,6 +79,7 @@ struct Menu: View {
                     HStack(alignment:.center, spacing: 25){
                         Button(action: {
                             categoryType = ""
+                            highlighted = .all
                         }, label: {
                             Text("All")
                         })
@@ -76,12 +87,13 @@ struct Menu: View {
                         .frame(maxWidth: .infinity)
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundStyle(Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(0.1))
+                        .foregroundStyle(highlighted == .all ? Color.white : Color("primaryColor"))
+                        .background(Color("primaryColor").opacity(highlighted == .all ? 1.0 : 0.1))
                         .clipShape(.capsule)
                         
                         Button(action: {
                             categoryType = "starters"
+                            highlighted = .starters
                         }, label: {
                             Text("Starters")
                         })
@@ -89,12 +101,13 @@ struct Menu: View {
                         .frame(maxWidth: .infinity)
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundStyle(Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(0.1))
+                        .foregroundStyle(highlighted == .starters ? Color.white : Color("primaryColor"))
+                        .background(Color("primaryColor").opacity(highlighted == .starters ? 1.0 : 0.1))
                         .clipShape(.capsule)
                         
                         Button(action: {
                             categoryType = "mains"
+                            highlighted = .mains
                         }, label: {
                             Text("Mains")
                         })
@@ -102,12 +115,13 @@ struct Menu: View {
                         .frame(maxWidth: .infinity)
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundStyle(Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(0.1))
+                        .foregroundStyle(highlighted == .mains ? Color.white : Color("primaryColor"))
+                        .background(Color("primaryColor").opacity(highlighted == .mains ? 1.0 : 0.1))
                         .clipShape(.capsule)
                         
                         Button(action: {
                             categoryType = "desserts"
+                            highlighted = .desserts
                         }, label: {
                             Text("Dessert")
                         })
@@ -115,12 +129,13 @@ struct Menu: View {
                         .frame(maxWidth: .infinity)
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundStyle(Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(0.1))
+                        .foregroundStyle(highlighted == .desserts ? Color.white : Color("primaryColor"))
+                        .background(Color("primaryColor").opacity(highlighted == .desserts ? 1.0 : 0.1))
                         .clipShape(.capsule)
                         
                         Button(action: {
                             categoryType = "drinks"
+                            highlighted = .drinks
                         }, label: {
                             Text("Drinks")
                         })
@@ -128,8 +143,8 @@ struct Menu: View {
                         .frame(maxWidth: .infinity)
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundStyle(Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(0.1))
+                        .foregroundStyle(highlighted == .drinks ? Color.white : Color("primaryColor"))
+                        .background(Color("primaryColor").opacity(highlighted == .drinks ? 1.0 : 0.1))
                         .clipShape(.capsule)
                         
                     }
