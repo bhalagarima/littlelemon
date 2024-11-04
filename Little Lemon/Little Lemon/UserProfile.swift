@@ -95,7 +95,7 @@ struct UserProfile: View {
                     Spacer()
                     Button("Log Out", action: {
                         UserDefaults.standard.set(false, forKey: "kIsLoggedIn")
-                        path.removeAll()
+                        path = []
                     })
                     .padding()
                     .frame(maxWidth: .infinity)

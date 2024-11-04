@@ -19,7 +19,6 @@ struct Onboarding: View {
     @State var email = ""
     @State private var showEmailValidAlert: Bool = false
     @State private var showEmptyField: Bool = false
-    @State var isLoggedIn: Bool = false
     let persistence = PersistenceController.shared
     @State private var navPath: [String] = []
     
@@ -77,7 +76,8 @@ struct Onboarding: View {
                                 UserDefaults.standard.set(lastName, forKey: klastName)
                                 UserDefaults.standard.set(email, forKey: kemail)
                                 UserDefaults.standard.set(true, forKey: kIsLoggedIn)
-                                isLoggedIn = true
+                                navPath.append("Menu")
+                                
                             }else {
                                 showEmailValidAlert = true
                             }
@@ -98,19 +98,25 @@ struct Onboarding: View {
                 .alert("Empty Field!! Enter required value", isPresented: $showEmptyField) {
                     Button("OK", role: .cancel) { }
                 }
-                .navigationDestination(isPresented: $isLoggedIn) {
-                    Menu(path: $navPath)
-                    .environment(\.managedObjectContext, persistence.container.viewContext)
+                .navigationDestination(for: String.self) { value in
+                    if value == "Menu" {
+                        Menu(path: $navPath)
+                        .environment(\.managedObjectContext, persistence.container.viewContext)
+                    }
+                    if value == "UserProfile" {
+                        UserProfile(path: $navPath)
+                    }
                 }
                 .onAppear(perform: {
                     if let userLoginStatus = UserDefaults.standard.value(forKey: "kIsLoggedIn") as? Bool {
                         if userLoginStatus {
-                            isLoggedIn = true
+                            navPath.removeAll()
+                            navPath.append("Menu")
                         }else {
-                            isLoggedIn = false
+                            navPath.removeAll()
                         }
                     }else {
-                        isLoggedIn = false
+                        navPath.removeAll()
                     }
                 })
             }

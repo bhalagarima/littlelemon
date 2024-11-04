@@ -34,14 +34,17 @@ struct Menu: View {
                     .scaledToFit()
                     .frame(height: 50)
                 Spacer()
-                NavigationLink(destination: UserProfile(path: $path)) {
+                Button(action: {
+                    path.append("UserProfile")
+                }, label: {
                     Image("profile-image-placeholder")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width:50, height: 50)
                         .clipShape(.circle)
-                }
+                })
             }
+            
             VStack(alignment: .leading) {
                 Text("Little Lemon")
                     .font(.title)
