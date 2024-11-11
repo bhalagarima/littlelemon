@@ -8,7 +8,6 @@
 import SwiftUI
 import CoreData
 
-
 struct Menu: View {
     
     enum highlightTag {
@@ -24,7 +23,7 @@ struct Menu: View {
     @State var searchText = ""
     @State var categoryType = ""
     @State private var highlighted = highlightTag.all
-    
+
     var body: some View {
         VStack(spacing: 20){
             HStack{
@@ -80,76 +79,55 @@ struct Menu: View {
                     .fontWeight(.medium)
                 ScrollView(.horizontal, showsIndicators: true){
                     HStack(alignment:.center, spacing: 25){
-                        Button(action: {
+                        LittleLemonButton(
+                            buttonTitle: "All",
+                            buttonAction: {
                             categoryType = ""
                             highlighted = .all
-                        }, label: {
-                            Text("All")
-                        })
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundStyle(highlighted == .all ? Color.white : Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(highlighted == .all ? 1.0 : 0.1))
-                        .clipShape(.capsule)
+                        },
+                            buttonType: .highlighted,
+                            buttonState: highlighted == .all ? .active : .inactive
+                        )
                         
-                        Button(action: {
-                            categoryType = "starters"
-                            highlighted = .starters
-                        }, label: {
-                            Text("Starters")
-                        })
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundStyle(highlighted == .starters ? Color.white : Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(highlighted == .starters ? 1.0 : 0.1))
-                        .clipShape(.capsule)
+                        LittleLemonButton(
+                            buttonTitle: "Starters",
+                            buttonAction: {
+                                categoryType = "starters"
+                                highlighted = .starters
+                        },
+                            buttonType: .highlighted,
+                            buttonState: highlighted == .starters ? .active : .inactive
+                        )
                         
-                        Button(action: {
-                            categoryType = "mains"
-                            highlighted = .mains
-                        }, label: {
-                            Text("Mains")
-                        })
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundStyle(highlighted == .mains ? Color.white : Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(highlighted == .mains ? 1.0 : 0.1))
-                        .clipShape(.capsule)
+                        LittleLemonButton(
+                            buttonTitle: "Mains",
+                            buttonAction: {
+                                categoryType = "mains"
+                                highlighted = .mains
+                        },
+                            buttonType: .highlighted,
+                            buttonState: highlighted == .mains ? .active : .inactive
+                        )
                         
-                        Button(action: {
-                            categoryType = "desserts"
-                            highlighted = .desserts
-                        }, label: {
-                            Text("Dessert")
-                        })
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundStyle(highlighted == .desserts ? Color.white : Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(highlighted == .desserts ? 1.0 : 0.1))
-                        .clipShape(.capsule)
+                        LittleLemonButton(
+                            buttonTitle: "Dessert",
+                            buttonAction: {
+                                categoryType = "desserts"
+                                highlighted = .desserts
+                        },
+                            buttonType: .highlighted,
+                            buttonState: highlighted == .desserts ? .active : .inactive
+                        )
                         
-                        Button(action: {
-                            categoryType = "drinks"
-                            highlighted = .drinks
-                        }, label: {
-                            Text("Drinks")
-                        })
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundStyle(highlighted == .drinks ? Color.white : Color("primaryColor"))
-                        .background(Color("primaryColor").opacity(highlighted == .drinks ? 1.0 : 0.1))
-                        .clipShape(.capsule)
-                        
+                        LittleLemonButton(
+                            buttonTitle: "Drinks",
+                            buttonAction: {
+                                categoryType = "drinks"
+                                highlighted = .drinks
+                        },
+                            buttonType: .highlighted,
+                            buttonState: highlighted == .drinks ? .active : .inactive
+                        )
                     }
                     .frame(maxWidth:.infinity)
                 }

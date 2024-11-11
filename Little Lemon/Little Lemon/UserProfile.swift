@@ -37,14 +37,13 @@ struct UserProfile: View {
                             .frame(width:120, height: 120)
                             .clipShape(.circle)
                         
-                        Button("Change", action: {
+                        LittleLemonButton(
+                            buttonTitle: "Change",
+                            buttonAction: {
                             showSheet = true
-                        })
-                        .padding()
-                        .frame(width: 100, height: 40)
-                        .background(Color("primaryColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                        },
+                            buttonType: .primary,
+                            buttonState: .active)
                     }
                     
                     VStack(alignment: .leading){
@@ -71,37 +70,38 @@ struct UserProfile: View {
                     }
                     Spacer()
                     HStack(spacing: 20){
-                        Button("Discard Changes", action: {
-                            updateChanges(isDiscard: true)
-                        })
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        LittleLemonButton(
+                            buttonTitle: "Discard Changes",
+                            buttonAction: {
+                                updateChanges(isDiscard: true)
+                        },
+                            buttonType: .secondary,
+                            buttonState: .inactive
+                        )
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(Color("primaryColor"), lineWidth: 1.0)
                         )
                         
-                        Button("Save Changes", action: {
-                            updateChanges(isDiscard: false)
-                            isChangesSaved = true
-                        })
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color("primaryColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                        LittleLemonButton(
+                            buttonTitle: "Save Changes",
+                            buttonAction: {
+                                updateChanges(isDiscard: false)
+                                isChangesSaved = true
+                        },
+                            buttonType: .primary,
+                            buttonState: .active
+                        )
                     }
                     Spacer()
-                    Button("Log Out", action: {
-                        UserDefaults.standard.set(false, forKey: "kIsLoggedIn")
-                        path = []
-                    })
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color("secondaryColor"))
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
+                    LittleLemonButton(
+                        buttonTitle: "Log Out",
+                        buttonAction: {
+                            UserDefaults.standard.set(false, forKey: "kIsLoggedIn")
+                            path = []
+                    },
+                        buttonType: .secondary,
+                        buttonState: .active
+                    )
                 }
                 .sheet(isPresented: $showSheet) {
                     ImagePicker(sourceType: .photoLibrary, selectedImage: self.$profileImage)

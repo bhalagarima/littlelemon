@@ -9,7 +9,7 @@ let kfirstName = "first name key"
 let klastName = "last name key"
 let kemail = "email key"
 let kIsLoggedIn = "kIsLoggedIn"
-
+ 
 import SwiftUI
 import CoreData
 
@@ -68,28 +68,13 @@ struct Onboarding: View {
                         .textFieldStyle(.roundedBorder)
                         .keyboardType(.emailAddress)
                     Spacer()
-                    Button("Register", action: {
-                        if !(firstName.isEmpty) && !(lastName.isEmpty) && !(email.isEmpty) {
-                            
-                            if isEmail(valid: email) {
-                                UserDefaults.standard.set(firstName, forKey: kfirstName)
-                                UserDefaults.standard.set(lastName, forKey: klastName)
-                                UserDefaults.standard.set(email, forKey: kemail)
-                                UserDefaults.standard.set(true, forKey: kIsLoggedIn)
-                                navPath.append("Menu")
-                                
-                            }else {
-                                showEmailValidAlert = true
-                            }
-                        }else {
-                            showEmptyField = true
-                        }
-                    })
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color("primaryColor"))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                    LittleLemonButton(
+                        buttonTitle: "Register",
+                        buttonAction: {
+                            registerUser()
+                    },
+                    buttonType: .primary,
+                    buttonState: .active)
                 }
                 .padding(10)
                 .alert("Email is invalid", isPresented: $showEmailValidAlert) {
@@ -127,6 +112,22 @@ struct Onboarding: View {
     func isEmail(valid: String) -> Bool {
         let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: valid)
+    }
+    
+    func registerUser() {
+        if !(firstName.isEmpty) && !(lastName.isEmpty) && !(email.isEmpty) {
+            if isEmail(valid: email) {
+                UserDefaults.standard.set(firstName, forKey: kfirstName)
+                UserDefaults.standard.set(lastName, forKey: klastName)
+                UserDefaults.standard.set(email, forKey: kemail)
+                UserDefaults.standard.set(true, forKey: kIsLoggedIn)
+                navPath.append("Menu")
+            }else {
+                showEmailValidAlert = true
+            }
+        }else {
+            showEmptyField = true
+        }
     }
 }
 
